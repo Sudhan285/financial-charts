@@ -1,0 +1,19 @@
+html,
+body, .container {
+    height: 100%;
+}
+
+.stock-block {
+      border: 1px solid #bbb;
+      height: 130px;
+      border-left-width: 5px;
+      background-color: #fff;
+    }
+
+h3 {
+  margin-top: 10px;
+}
+
+.name {
+  color: #A0A0A2;
+}
