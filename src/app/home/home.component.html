@@ -1,5 +1,37 @@
-    <div style="display: block;">
-    <canvas baseChart
+  <div *ngIf="!lineChartData[0].label" class="card">
+    <h4 class="card-header">About Financial Charts</h4>
+    <div class="card-block">
+      <div class="col-md-4">
+        <ul>
+          <li><b>Author:</b> <a href="https://github.com/sschapma" target="_blank">Sam Chapman</a></li>
+          <li><b>GitHub:</b> <a href="https://github.com/sschapma/financial-charts" target="_blank">project repository</a></li>
+          <li><b>Tools used:</b></li>
+          <ul>
+            <li><a href="http://www.mongoosejs.com" target="_blank"><b>M</b>ongoose.js</a> (<a href="https://www.mongodb.com" target="_blank">MongoDB</a>)</li>
+            <li><a href="http://www.expressjs.com" target="_blank"><b>E</b>xpress.js</a></li>
+            <li><a href="https://www.angular.io" target="_blank"><b>A</b>ngular 2</a></li>
+            <li><a href="https://www.nodejs.org" target="_blank"><b>N</b>ode.js</a></li>
+            <li><a href="http://auth0.com" target="_blank">Auth0</a></li>
+            <li><a href="https://www.quandl.com" target="_blank">Quandl Financial API</a></li>
+            <li><a href="http://www.chartjs.org/" target="_blank">ChartJS</a></li>
+            <li><a href="https://cli.angular.io" target="_blank">Angular CLI</a></li>
+            <li><a href="http://www.getbootstrap.com" target="_blank">Bootstrap</a></li>
+            <li><a href="http://www.fontawesome.io" target="_blank">Font Awesome</a></li>
+          </ul>
+        </ul>
+      </div>
+      <div class="col-md-8">
+        <b>Stocks</b>
+        To get started, please enter the code from any major stock market. The financial data for the previous year will be charted, along with the most recent close figure.
+        You can enter multiple stocks to compare. Each stock will be tied to your user account, so it will automatically be displayed the next time you visit. To remove a stock, simply click the 'X'.<br /><br />
+
+        <b>Currency Exchange</b>
+        Work in progress...<br />
+      </div>
+    </div>
+  </div>
+  <div *ngIf="lineChartData[0].label" style="display: block;">
+    <canvas baseChart style="margin-top:-20px;"
                 [datasets]="lineChartData"
                 [labels]="lineChartLabels"
                 [options]="lineChartOptions"
@@ -7,28 +39,25 @@
                 [chartType]="lineChartType"
                 (chartHover)="chartHovered($event)"
                 (chartClick)="chartClicked($event)"></canvas>
-    </div>
+  </div>
 
-    <button (click)="randomize()">CLICK</button>
-
-    <div class="row">
+  <div class="row">
     <div class="col-md-12 stocks-container">
 
       <div class="col-md-4 col-sm-6 stock-block" *ngFor="let stock of stocks">
         <h3>{{ stock.code }} <button type="button" class="close" (click)="deleteStock(stock)">&times;</button></h3>
-        <span class="name">{{ stock.name }}</span>
+        <span class="name">{{ stock.name }}<br />{{stock.info}}</span>
       </div>
 
       <div class="col-md-4 col-sm-6 stock-block stock-new">
         <label>Syncs in realtime across clients</label>
-        <form novalidate>
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="Stock code" ng-model="main.newStock">
+            <input type="text" class="form-control" placeholder="Stock code" [(ngModel)]="stockCode">
             <span class="input-group-btn">
-              <button class="btn btn-success" (click)="addStock()">Add</button>
+              <button class="btn btn-success" [disabled]="!stockCode" (click)="addStock()">Add</button>
             </span>
           </div>
-        </form>
 
         <div class="error"></div>
       </div>
+  </div>

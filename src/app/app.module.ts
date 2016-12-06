@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { ChatService } from './services/chat.service';
 import { AuthService } from './services/auth.service';
+import { DataService } from './services/data.service';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 import { AgentComponent } from './agent/agent.component';
@@ -38,7 +39,8 @@ const routing = RouterModule.forRoot([
   providers: [
     ChatService,
     AuthService,
-    AlertComponent
+    AlertComponent,
+    DataService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
