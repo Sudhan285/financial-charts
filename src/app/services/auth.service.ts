@@ -13,8 +13,6 @@ export class AuthService {
   //auth0 options (adjust these to suit your needs)
   options = {
     closable:false,
-    allowSignUp: false,
-    rememberLastLogin: false,
     allowForgotPassword: false
   };
   // We'll use the Auth0 Lock widget for capturing user credentials
