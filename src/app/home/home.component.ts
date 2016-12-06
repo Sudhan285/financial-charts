@@ -48,12 +48,17 @@ export class HomeComponent implements OnInit {
   public deleteStock(stock){
     let x = this.stocks.indexOf(stock);
     this.stocks.splice(x,1);
-    for (let obj of this.lineChartData){
+    let _lineChartData = this.lineChartData;
+    for (let obj of _lineChartData){
       if (obj.label == stock.code){
-        let y = this.lineChartData.indexOf(obj);
-        this.lineChartData.splice(y,1);
+        let y = _lineChartData.indexOf(obj);
+        _lineChartData.splice(y,1);
       }
     }
+    this.lineChartData=[{data:[0], label: 'x'}];
+    setTimeout(() => {
+      this.lineChartData = _lineChartData.length ? _lineChartData:[{data:[], label: null}];
+    }, 1);
   };
   // lineChart
   public lineChartData:Array<any> = [{data:[], label: null, fill:false, pointRadius:0, pointHitRadius:10}];

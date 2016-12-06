@@ -31,6 +31,13 @@
     </div>
   </div>
   <div *ngIf="lineChartData[0].label" style="display: block;">
+    <div class="changeData">
+      <button class="btn btm-sm btn-primary">1M</button>
+      <button class="btn btm-sm btn-primary">3M</button>
+      <button class="btn btm-sm btn-primary">6M</button>
+      <button class="btn btm-sm btn-primary">YTD</button>
+      <button class="btn btm-sm btn-primary">1Y</button>
+    </div>
     <canvas baseChart style="margin-top:-20px;"
                 [datasets]="lineChartData"
                 [labels]="lineChartLabels"
@@ -52,7 +59,7 @@
       <div class="col-md-4 col-sm-6 stock-block stock-new">
         <label>Syncs in realtime across clients</label>
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="Stock code" [(ngModel)]="stockCode">
+            <input type="text" class="form-control" placeholder="Stock code" [(ngModel)]="stockCode" (keyup.enter)="addStock()">
             <span class="input-group-btn">
               <button class="btn btn-success" [disabled]="!stockCode" (click)="addStock()">Add</button>
             </span>
