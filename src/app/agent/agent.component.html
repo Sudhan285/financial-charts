@@ -1,32 +1,35 @@
-<div style="display: block;">
-<canvas baseChart style="margin-top:-20px;"
-            [datasets]="lineChartData"
-            [labels]="lineChartLabels"
-            [options]="lineChartOptions"
-            [legend]="lineChartLegend"
-            [chartType]="lineChartType"
-            (chartHover)="chartHovered($event)"
-            (chartClick)="chartClicked($event)"></canvas>
+<div class="form-inline currency-form">
+  <div class="form-group">
+    <input class="form-control" [(ngModel)]="multiplier" type="number"/>
+  </div>
+  <div class="form-group">
+    <select class="form-control" (change)="dates()" [(ngModel)]="base">
+      <option *ngFor="let x of currencies" [ngValue]="x.code">
+        {{x.code}} - {{x.name}}
+      </option>
+    </select>
+  </div>
+  <div class="form-group">
+    <select class="form-control" (change)="dates()" [(ngModel)]="curr">
+      <option *ngFor="let x of currencies" [ngValue]="x.code">
+        {{x.code}} - {{x.name}}
+      </option>
+    </select>
+  </div>
 </div>
 
-<button (click)="randomize()">CLICK</button>
-
 <div class="row">
-<div class="col-md-12 stocks-container">
+  <div class="col-md-12 stocks-container">
 
-  <div class="col-md-4 col-sm-6 stock-block" *ngFor="let stock of stocks">
-    <h3>{{ stock.code }} <button type="button" class="close" (click)="deleteStock(stock)">&times;</button></h3>
-    <span class="name">{{ stock.name }}</span>
+    <div class="col-sm-6 stock-block">
+      <h3>{{ base }}</h3>
+      <span class="name">{{ multiplier | number }}</span>
+    </div>
+
+    <div class="col-sm-6 stock-block">
+      <h3>{{ curr }}</h3>
+      <span class="name">{{ multiplier * rate | number }}</span>
+    </div>
+
   </div>
-
-  <div class="col-md-4 col-sm-6 stock-block stock-new">
-    <label>Syncs in realtime across clients</label>
-      <div class="input-group">
-        <input type="text" class="form-control" placeholder="Stock code" [(ngModel)]="stockCode">
-        <span class="input-group-btn">
-          <button class="btn btn-success" (click)="addStock()">Add</button>
-        </span>
-      </div>
-
-    <div class="error"></div>
-  </div>
+</div>
