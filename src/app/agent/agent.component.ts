@@ -22,17 +22,19 @@ export class AgentComponent implements OnInit {
   public multiplier:number = 1;
   public currHistory:Array<any>;
   public rate:number;
+  public username;
 
   constructor(private data:DataService) { }
 
   ngOnInit() {
-    this.dates();
+    this.dates(null);
     let now = new Date();
     let month = now.getMonth() + 1;
     let year = now.getMonth() + 1;
   }
 
-  public dates(){
+  public dates(value){
+    let sym = (value) ? value.slice(-3) : this.base;
     let dateArr = ['latest'];
     function addMonths(date, months) {
       date.setMonth(date.getMonth() + months);
@@ -51,7 +53,7 @@ export class AgentComponent implements OnInit {
     }
 
     for (let date of dateArr){
-      this.findRates(date);
+      this.findRates(sym,date);
     }
   }
   public tArr = [];
@@ -90,10 +92,10 @@ export class AgentComponent implements OnInit {
       scope.difference = {change:'none',percent:0};
     }
   }
-  public findRates(date){
+  public findRates(sym,date){
     //let tempArr=[];
     let scope = this;
-    this.data.getCurrency(this.base,date)
+    this.data.getCurrency(sym,date)
     .subscribe(
       stock => {
         let obj={date:Number(stock.date.replace(/-/g,'')),base:stock.base,curr:stock.rates[this.curr]};

@@ -1,4 +1,15 @@
-.currency-form{
-  width:80%;
-  margin: 20px auto;
+.height-adj{
+  height:60px!important;
+}
+.no-gutter > [class*='col-'] {
+    padding-right:2px;
+    padding-left:2px;
+}
+.result{
+  font-size: 1.3em;
+  color: #0275D8;
+  font-weight: bold;
+}
+.percent{
+  margin-top:18px;
 }
