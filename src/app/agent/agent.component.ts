@@ -27,10 +27,12 @@ export class AgentComponent implements OnInit {
 
   ngOnInit() {
     this.dates();
+    let now = new Date();
+    let month = now.getMonth() + 1;
+    let year = now.getMonth() + 1;
   }
 
   public dates(){
-    // 1m, 3m, 6m, 9m, 1y
     let dateArr = ['latest'];
     function addMonths(date, months) {
       date.setMonth(date.getMonth() + months);
@@ -44,28 +46,98 @@ export class AgentComponent implements OnInit {
       dateArr.push(x);
     }
     this.currHistory = [];
-    formatDate(addMonths(new Date(), -1));
-    formatDate(addMonths(new Date(), -3));
-    formatDate(addMonths(new Date(), -6));
-    formatDate(addMonths(new Date(), -9));
-    formatDate(addMonths(new Date(), -12));
+    for (let i=1; i<=12; i++){
+        formatDate(addMonths(new Date(), -i));
+    }
+
     for (let date of dateArr){
       this.findRates(date);
     }
   }
-
+  public tArr = [];
+  public difference;
+  public sortArray(){
+    let scope = this;
+    this.tArr.sort(function(a, b){
+        var keyA = (a.date),
+            keyB = (b.date);
+        // Compare the 2 dates
+        if(keyA < keyB) return 1;
+        if(keyA > keyB) return -1;
+        return 0;
+    });
+    this.rate = this.tArr[0].curr;
+    let obj = [{data:[], label: `1 ${scope.base} = ${scope.curr}`}];
+    let labels = [];
+    for (let x of this.tArr){
+      let newDate = String(x.date);
+      let yr = newDate.slice(2,4);
+      let mon = newDate.slice(4,6);
+      labels.unshift(mon+'-'+yr);
+      obj[0].data.unshift(x.curr);
+    }
+    this.lineChartLabels = labels;
+    this.lineChartData = obj;
+    let current = this.tArr[0].curr;
+    let pastYear = this.tArr[12].curr;
+    if (current>pastYear){
+      let pct = Math.round(((current/pastYear)-1)*100000)/1000;
+      scope.difference = {change:'up',percent:pct};
+    }else if (current<pastYear){
+      let pct = Math.round((1-(current/pastYear))*100000)/1000;
+      scope.difference = {change:'down',percent:pct};
+    }else {
+      scope.difference = {change:'none',percent:0};
+    }
+  }
   public findRates(date){
-    let tempArr=[];
+    //let tempArr=[];
+    let scope = this;
     this.data.getCurrency(this.base,date)
     .subscribe(
       stock => {
-        let obj={date:stock.date,base:stock.base,curr:stock.rates[this.curr]};
-        tempArr.push(obj);
+        let obj={date:Number(stock.date.replace(/-/g,'')),base:stock.base,curr:stock.rates[this.curr]};
+        if (scope.tArr.length == 13){scope.tArr = [];}
+        scope.tArr.push(obj);
+        if (scope.tArr.length == 13){scope.sortArray();}
     },
       error => console.log(error),
     );
-    console.log(tempArr[0]);
   };
 
+  public lineChartData:Array<any> = [{data:[0], label: null, fill:false, pointRadius:10, pointHitRadius:10}];
+  public lineChartLabels:Array<any> = [];
+  public lineChartOptions:any = {
+    animation: false,
+    responsive: true,
+    hover: {
+			mode: 'x-axis'
+		},
+		tooltips: {
+			enabled: true,
+			mode: 'x-axis',
+			titleFontSize: 24,
+			titleMarginBottom: 15,
+			bodyFontSize: 18,
+			bodySpacing: 15,
+      displayColors: false
+		},
+		legend: {
+			labels: {
+				fontSize: 18,
+				fontStyle: "bold",
+				padding: 30
+			}
+		},
+    scales: {
+      xAxes: [{
+        ticks: {
+          maxTicksLimit: 13
+        }
+      }]
+    }
+  };
+  public lineChartLegend:boolean = false;
+  public lineChartType:string = 'line';
 
 }
