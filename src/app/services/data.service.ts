@@ -9,12 +9,14 @@ export class DataService {
   private apiKey = "WTuGQxLsvq-PutMxZAPz";
   constructor(private http: Http) { }
 
-  getStocks(name) {
+  getStocks(name, startDate) {
     let now = new Date();
     let year = now.getFullYear();
     let month = now.getMonth() + 1;
     let date = now.getDate();
-    let url = `https://www.quandl.com/api/v3/datasets/WIKI/${name}.json?api_key=${this.apiKey}&start_date=${year - 1}-${month}-${date}&end_date=${year}-${month}-${date}`
+    console.log(startDate);
+
+    let url = `https://www.quandl.com/api/v3/datasets/WIKI/${name}.json?api_key=${this.apiKey}&start_date=${startDate}&end_date=${year}-${month}-${date}`
     return this.http.get(url).map(res => res.json());
   }
 

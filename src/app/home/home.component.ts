@@ -13,16 +13,64 @@ export class HomeComponent implements OnInit {
   public stockCode:string;
   public stocks:Array<any> = [];
   public error:string;
+  public viewData:any;
+  public currentView:string;
 
   constructor(private alert:AlertComponent,
               private data:DataService) { }
 
   ngOnInit() {
-
+    this.changeView('1y');
   }
 
-  public addStock(){
-    this.data.getStocks(this.stockCode)
+  public changeView(period){
+    let scope = this;
+    function addMonths(date, months) {
+      date.setMonth(date.getMonth() + months);
+      return date;
+    }
+    function formatDate(date){
+      let year = date.getFullYear();
+      let month = date.getMonth() + 1;
+      let day = date.getDate();
+      let x = `${year}-${month}-${day}`;
+      return x;
+    }
+    let startDate;
+    switch (period){
+      case '1m':
+        startDate = formatDate(addMonths(new Date(), -1));
+        break;
+      case '3m':
+        startDate = formatDate(addMonths(new Date(), -3));
+        break;
+      case '6m':
+        startDate = formatDate(addMonths(new Date(), -6));
+        break;
+      case 'ytd':
+        let now = new Date();
+        let yr = now.getFullYear();
+        startDate = `${yr}-1-1`
+        break;
+      case '1y':
+        startDate = formatDate(addMonths(new Date(), -12));
+        break;
+      default:
+        startDate = formatDate(addMonths(new Date(), -12));
+    }
+    scope.currentView = startDate;
+    scope.lineChartData = [{data:[], label: null}];
+    let _stocks = scope.stocks;
+    scope.stocks = [];
+    for (let stock of _stocks){
+      setTimeout(() => {
+        scope.addStock(stock.code, startDate);
+      }, 50);
+    }
+  }
+
+  public addStock(sym, date){
+    this.data.getStocks(sym, date)
     .subscribe(
       stock => {
         let shorten = 'Prices, Dividends, Splits and Trading Volume';
@@ -107,13 +155,4 @@ export class HomeComponent implements OnInit {
   };
   public lineChartLegend:boolean = true;
   public lineChartType:string = 'line';
-
-  // events
-  public chartClicked(e:any):void {
-    console.log(e);
-  }
-
-  public chartHovered(e:any):void {
-    console.log(e);
-  }
 }

@@ -33,20 +33,18 @@
 
   <div *ngIf="lineChartData[0].label" style="display: block;">
     <div class="changeData">
-      <button class="btn btm-sm btn-primary">1M</button>
-      <button class="btn btm-sm btn-primary">3M</button>
-      <button class="btn btm-sm btn-primary">6M</button>
-      <button class="btn btm-sm btn-primary">YTD</button>
-      <button class="btn btm-sm btn-primary">1Y</button>
+      <button class="btn btm-sm btn-primary" (click)="changeView('1m')">1M</button>
+      <button class="btn btm-sm btn-primary" (click)="changeView('3m')">3M</button>
+      <button class="btn btm-sm btn-primary" (click)="changeView('6m')">6M</button>
+      <button class="btn btm-sm btn-primary" (click)="changeView('ytd')">YTD</button>
+      <button class="btn btm-sm btn-primary" (click)="changeView('1y')">1Y</button>
     </div>
-    <canvas baseChart style="margin-top:-20px;"
+    <canvas baseChart
                 [datasets]="lineChartData"
                 [labels]="lineChartLabels"
                 [options]="lineChartOptions"
                 [legend]="lineChartLegend"
-                [chartType]="lineChartType"
-                (chartHover)="chartHovered($event)"
-                (chartClick)="chartClicked($event)"></canvas>
+                [chartType]="lineChartType"></canvas>
   </div>
 
   <div class="row">
@@ -60,9 +58,9 @@
       <div class="col-md-4 col-sm-6 stock-block stock-new">
         <label>Syncs in realtime across clients</label>
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="Stock code" [(ngModel)]="stockCode" (keyup.enter)="addStock()">
+            <input type="text" class="form-control" placeholder="Stock code" [(ngModel)]="stockCode" (keyup.enter)="addStock(stockCode, currentView)">
             <span class="input-group-btn">
-              <button class="btn btn-success" [disabled]="!stockCode" (click)="addStock()">Add</button>
+              <button class="btn btn-success" [disabled]="!stockCode" (click)="addStock(stockCode, currentView)">Add</button>
             </span>
           </div>
 

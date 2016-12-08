@@ -22,7 +22,6 @@ export class AgentComponent implements OnInit {
   public multiplier:number = 1;
   public currHistory:Array<any>;
   public rate:number;
-  public username;
 
   constructor(private data:DataService) { }
 
