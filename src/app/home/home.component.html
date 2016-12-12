@@ -1,4 +1,4 @@
-  <div *ngIf="!lineChartData[0].label" class="card">
+  <div class="card">
     <h4 class="card-header">About Financial Charts</h4>
     <div class="card-block">
       <div class="col-md-4">
@@ -7,12 +7,11 @@
           <li><b>GitHub:</b> <a href="https://github.com/sschapma/financial-charts" target="_blank">project repository</a></li>
           <li><b>Tools used:</b></li>
           <ul>
-            <li><a href="http://www.mongoosejs.com" target="_blank"><b>M</b>ongoose.js</a> (<a href="https://www.mongodb.com" target="_blank">MongoDB</a>)</li>
             <li><a href="http://www.expressjs.com" target="_blank"><b>E</b>xpress.js</a></li>
             <li><a href="https://www.angular.io" target="_blank"><b>A</b>ngular 2</a></li>
             <li><a href="https://www.nodejs.org" target="_blank"><b>N</b>ode.js</a></li>
-            <li><a href="http://auth0.com" target="_blank">Auth0</a></li>
             <li><a href="https://www.quandl.com" target="_blank">Quandl Financial API</a></li>
+            <li><a href="https://fixer.io" target="_blank">Fixer.io Exchange Rate API</a></li>
             <li><a href="http://www.chartjs.org/" target="_blank">ChartJS</a></li>
             <li><a href="https://cli.angular.io" target="_blank">Angular CLI</a></li>
             <li><a href="http://www.getbootstrap.com" target="_blank">Bootstrap</a></li>
@@ -22,48 +21,16 @@
       </div>
       <div class="col-md-8">
         <b>Stocks</b>
-        To get started, please enter the code from any major stock market. The financial data for the previous year will be charted, along with the most recent close figure.
-        You can enter multiple stocks to compare. Each stock will be tied to your user account, so it will automatically be displayed the next time you visit. To remove a stock, simply click the 'X'.<br /><br />
+        To get started, please enter the code from any major stock market. The financial data for the previous year will be charted, along
+        with the most recent close figure. The timeframe can be changed by clicking the buttons in the top left corner. You can enter
+        multiple stocks to compare. The stocks will be saved to local storage, so they will automatically be displayed the next time you visit.
+        To remove a stock, simply click the 'X'.<br /><br />
 
         <b>Currency Exchange</b>
-        Work in progress...<br />
+        Please enter an amount, a base currency and the currency to compare it to. If you would like to save these currencies for next time,
+        please click 'Set as default.' The exchange value will display below the inputs as well as a chart showing the exchange rate for this day
+        on each of the previous 12 months. (The API requires a call for every day that you look up, so I chose to do 1 day a month for 12 months.)
+        Upon changing the inputs, the values and chart will update automatically.<br />
       </div>
     </div>
-  </div>
-
-  <div *ngIf="lineChartData[0].label" style="display: block;">
-    <div class="changeData">
-      <button class="btn btm-sm btn-primary" (click)="changeView('1m')">1M</button>
-      <button class="btn btm-sm btn-primary" (click)="changeView('3m')">3M</button>
-      <button class="btn btm-sm btn-primary" (click)="changeView('6m')">6M</button>
-      <button class="btn btm-sm btn-primary" (click)="changeView('ytd')">YTD</button>
-      <button class="btn btm-sm btn-primary" (click)="changeView('1y')">1Y</button>
-    </div>
-    <canvas baseChart
-                [datasets]="lineChartData"
-                [labels]="lineChartLabels"
-                [options]="lineChartOptions"
-                [legend]="lineChartLegend"
-                [chartType]="lineChartType"></canvas>
-  </div>
-
-  <div class="row">
-    <div class="col-md-12 stocks-container">
-
-      <div class="col-md-4 col-sm-6 stock-block" *ngFor="let stock of stocks">
-        <h3>{{ stock.code }} <button type="button" class="close" (click)="deleteStock(stock)">&times;</button></h3>
-        <span class="name">{{ stock.name }}<br />{{stock.info}}</span>
-      </div>
-
-      <div class="col-md-4 col-sm-6 stock-block stock-new">
-        <label>Syncs in realtime across clients</label>
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="Stock code" [(ngModel)]="stockCode" (keyup.enter)="addStock(stockCode, currentView)">
-            <span class="input-group-btn">
-              <button class="btn btn-success" [disabled]="!stockCode" (click)="addStock(stockCode, currentView)">Add</button>
-            </span>
-          </div>
-
-        <div class="error"><small>{{error}}</small></div>
-      </div>
   </div>

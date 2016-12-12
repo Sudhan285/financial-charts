@@ -1,17 +1,15 @@
-<div *ngIf="isLoggedIn()" class="container">
+<div class="container">
 
   <nav class="navbar navbar-dark bg-primary">
     <div class="nav navbar-nav">
       <a routerLink="/" class="nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+        <i class="fa fa-home"></i> Home
+      </a>
+      <a routerLink="/stocks" class="nav-item nav-link" routerLinkActive="active">
         <i class="fa fa-home"></i> Stocks
       </a>
-      <a routerLink="/agent" class="nav-item nav-link" routerLinkActive="active">
+      <a routerLink="/currency" class="nav-item nav-link" routerLinkActive="active">
         <i class="fa fa-info-circle"></i> Currency
-      </a>
-    </div>
-    <div *ngIf="isLoggedIn()" class="nav navbar-nav pull-right">
-      <a (click)="auth.logout()" class="nav-item nav-link logout">
-        <i class="fa fa-sign-out"></i>Logout
       </a>
     </div>
   </nav>

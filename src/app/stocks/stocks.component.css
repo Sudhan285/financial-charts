@@ -1,0 +1,14 @@
+.stock-block {
+      border: 1px solid #bbb;
+      height: 130px;
+      border-left-width: 5px;
+      background-color: #fff;
+    }
+.name {
+  color: #A0A0A2;
+}
+.error {
+  color:red;
+  font-weight: bold;
+  text-transform: uppercase;
+}

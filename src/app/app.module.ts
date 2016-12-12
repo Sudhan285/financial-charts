@@ -6,27 +6,25 @@ import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { ChatService } from './services/chat.service';
-import { AuthService } from './services/auth.service';
+
 import { DataService } from './services/data.service';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 
-import { AgentComponent } from './agent/agent.component';
-import { ChatComponent } from './chat/chat.component';
-import { AlertComponent } from './shared/alert/alert.component';
+import { StocksComponent } from './stocks/stocks.component';
+import { CurrencyComponent } from './currency/currency.component';
 
 const routing = RouterModule.forRoot([
     { path: '',      component: HomeComponent },
-    { path: 'agent', component: AgentComponent }
+    { path: 'stocks',      component: StocksComponent },
+    { path: 'currency', component: CurrencyComponent }
 ]);
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    AgentComponent,
-    ChatComponent,
-    AlertComponent
+    StocksComponent,
+    CurrencyComponent
   ],
   imports: [
     BrowserModule,
@@ -37,9 +35,6 @@ const routing = RouterModule.forRoot([
     ChartsModule
   ],
   providers: [
-    ChatService,
-    AuthService,
-    AlertComponent,
     DataService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
