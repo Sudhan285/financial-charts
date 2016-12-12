@@ -26,10 +26,22 @@ export class AgentComponent implements OnInit {
   constructor(private data:DataService) { }
 
   ngOnInit() {
+    let defCurr = JSON.parse(localStorage.getItem("defaultCurrency"));
+    if (defCurr){
+      this.base = defCurr.base;
+      this.curr = defCurr.curr;
+    }
     this.dates(null);
     let now = new Date();
     let month = now.getMonth() + 1;
     let year = now.getMonth() + 1;
+  }
+  public setDefault(){
+    let defaultCurrency = {
+      base : this.base,
+      curr : this.curr
+    };
+    localStorage.setItem("defaultCurrency", JSON.stringify(defaultCurrency));
   }
 
   public dates(value){

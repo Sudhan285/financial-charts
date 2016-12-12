@@ -13,3 +13,9 @@
 .percent{
   margin-top:18px;
 }
+.default-btn{
+  padding:5px;
+  margin-left:5px;
+  margin-top:-5px;
+  font-size: x-small;
+}

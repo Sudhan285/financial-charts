@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { tokenNotExpired } from 'angular2-jwt';
 import { Router } from '@angular/router';
+import { DataService } from './data.service';
 
 declare var Auth0Lock: any;
 
@@ -8,7 +9,7 @@ declare var Auth0Lock: any;
 export class AuthService {
 
   //my auth0 credentials, replace these with your own
-  clientId = 'tryydia9RW5tOc27TNg3sacg32RNjNcf';
+  clientId = 'qymLfKiEP0M1bPMXchIR5Dbe0wrDH2yk';
   domain = 'sschapma.auth0.com';
   //auth0 options (adjust these to suit your needs)
   options = {
@@ -18,7 +19,7 @@ export class AuthService {
   // We'll use the Auth0 Lock widget for capturing user credentials
   lock = new Auth0Lock(this.clientId, this.domain, this.options);
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private data: DataService) {
     // We'll listen for an authentication event to be raised and if successful will log the user in.
     this.lock.on('authenticated', (authResult: any) => {
       localStorage.setItem('id_token', authResult.idToken);
@@ -46,6 +47,7 @@ export class AuthService {
 
     // Send the user back to the home page after logout
     this.router.navigateByUrl('/');
+    this.loggedIn();
     this.login();
   }
 

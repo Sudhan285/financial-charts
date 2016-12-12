@@ -20,6 +20,8 @@ export class HomeComponent implements OnInit {
               private data:DataService) { }
 
   ngOnInit() {
+    let stockList = localStorage.getItem("stockList");
+    if (stockList){this.stocks = JSON.parse(stockList);}
     this.changeView('1y');
   }
 
@@ -80,6 +82,7 @@ export class HomeComponent implements OnInit {
                    name:name, info:info};
         //console.log(stock);
         this.stocks.push(obj);
+        localStorage.setItem("stockList", JSON.stringify(this.stocks));
         //let stockData = stock.dataset.data.reverse();
         let chartObj = {data:[], label: stock.dataset.dataset_code, fill:false, pointRadius:0, pointHitRadius:5};
         let labels = [];
@@ -101,6 +104,7 @@ export class HomeComponent implements OnInit {
   public deleteStock(stock){
     let x = this.stocks.indexOf(stock);
     this.stocks.splice(x,1);
+    localStorage.setItem("stockList", JSON.stringify(this.stocks));
     let _lineChartData = this.lineChartData;
     for (let obj of _lineChartData){
       if (obj.label == stock.code){
