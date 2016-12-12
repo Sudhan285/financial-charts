@@ -15,6 +15,7 @@ export class StocksComponent implements OnInit {
   public error:string; //error message (if stock not found)
   public currentView:string; //the timeframe being graphed
   public loading:boolean = false; //loading screen
+  public activeClass:string; //sets active class
 
   constructor(private data:DataService) { }
 
@@ -60,23 +61,29 @@ export class StocksComponent implements OnInit {
     //takes the time frame and calls the appropriate function for the starting date
     switch (period){
       case '1m':
+        scope.activeClass = '1M';
         startDate = formatDate(addMonths(new Date(), -1));
         break;
       case '3m':
+        scope.activeClass = '3M';
         startDate = formatDate(addMonths(new Date(), -3));
         break;
       case '6m':
+        scope.activeClass = '6M';
         startDate = formatDate(addMonths(new Date(), -6));
         break;
       case 'ytd':
+        scope.activeClass = 'YTD';
         let now = new Date();
         let yr = now.getFullYear();
         startDate = `${yr}-1-1`
         break;
       case '1y':
+        scope.activeClass = '1Y';
         startDate = formatDate(addMonths(new Date(), -12));
         break;
       default:
+        scope.activeClass = '1Y';
         startDate = formatDate(addMonths(new Date(), -12));
     }
 
@@ -161,7 +168,7 @@ export class StocksComponent implements OnInit {
 
   //sets error message
   public noStock(){
-    this.error =  'Sorry. We couldn\'t find that stock. Please try again.';
+    this.error =  'Sorry. We couldn\'t find that stock.';
     setTimeout(() => {
       this.error = '';
       this.stockCode = '';

@@ -13,11 +13,11 @@
 <div *ngIf="!loading">
   <div *ngIf="lineChartData[0].label" style="display: block;">
     <div class="changeData">
-      <button class="btn btm-sm btn-primary" (click)="changeView('1m')">1M</button>
-      <button class="btn btm-sm btn-primary" (click)="changeView('3m')">3M</button>
-      <button class="btn btm-sm btn-primary" (click)="changeView('6m')">6M</button>
-      <button class="btn btm-sm btn-primary" (click)="changeView('ytd')">YTD</button>
-      <button class="btn btm-sm btn-primary" (click)="changeView('1y')">1Y</button>
+      <button class="btn btm-sm btn-primary btn-color" [ngClass]="{'active': activeClass == '1M' }" (click)="changeView('1m')">1M</button>
+      <button class="btn btm-sm btn-primary btn-color" [ngClass]="{'active': activeClass == '3M' }" (click)="changeView('3m')">3M</button>
+      <button class="btn btm-sm btn-primary btn-color" [ngClass]="{'active': activeClass == '6M' }" (click)="changeView('6m')">6M</button>
+      <button class="btn btm-sm btn-primary btn-color" [ngClass]="{'active': activeClass == 'YTD' }" (click)="changeView('ytd')">YTD</button>
+      <button class="btn btm-sm btn-primary btn-color" [ngClass]="{'active': activeClass == '1Y' }" (click)="changeView('1y')">1Y</button>
     </div>
     <canvas baseChart
                 [datasets]="lineChartData"
@@ -38,7 +38,7 @@
       <div class="col-md-4 col-sm-6 stock-block stock-new">
         <label>Please enter a stock symbol</label>
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="Stock code" [(ngModel)]="stockCode" (keyup.enter)="addStock(stockCode, currentView)" autofocus/>
+            <input type="text" class="form-control" placeholder="Stock code" [(ngModel)]="stockCode" (keyup.enter)="addStock(stockCode, currentView)" style="height:37px;" autofocus/>
             <span class="input-group-btn">
               <button class="btn btn-success" [disabled]="!stockCode" (click)="addStock(stockCode, currentView)">Add</button>
             </span>

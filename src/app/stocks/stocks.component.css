@@ -1,9 +1,12 @@
 .stock-block {
       border: 1px solid #bbb;
-      height: 130px;
-      border-left-width: 5px;
-      background-color: #fff;
+      min-height: 105px;
+      border-left-width: 3px;
+      background-color: #F7F7F7;
     }
+.stock-new{
+  padding-top:10px;
+}
 .name {
   color: #A0A0A2;
 }
@@ -11,4 +14,22 @@
   color:red;
   font-weight: bold;
   text-transform: uppercase;
+}
+.btn-color{
+  background-color: #781A21;
+  border:none;
+}
+.btn-color.active{
+  background-color: #52050A;
+}
+
+canvas, .changeData {
+  background-color: #E1F2FE;
+}
+.changeData {
+  margin-top: -20px;
+  padding-top: 10px;
+}
+canvas{
+  margin-bottom: 10px;
 }
