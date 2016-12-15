@@ -6,9 +6,12 @@ This project is a full stack financial charting application. It is used to graph
 
 ###Stocks
 To get started, please enter the code from any major stock market. The financial data for the previous year will be charted, along with the most recent close figure. The timeframe can be changed by clicking the buttons in the top left corner. You can enter multiple stocks to compare. The stocks will be saved to local storage, so they will automatically be displayed the next time you visit. To remove a stock, simply click the 'X'.
+![](http://sschapman.com/img/gifs/stocks.gif)
+
 
 ###Currency Exchange
 Please enter an amount, a base currency and the currency to compare it to. If you would like to save these currencies for next time, please click 'Set as default.' The exchange value will display below the inputs as well as a chart showing the exchange rate for this day on each of the previous 12 months. (The API requires a call for every day that you look up, so I chose to do 1 day a month for 12 months.) Upon changing the inputs, the values and chart will update automatically.
+![](http://sschapman.com/img/gifs/fex.gif)
 
 ##Tools
 
