@@ -21,7 +21,7 @@ export class DataService {
 
   //calls currency api, takes base currency and date as arguments
   getCurrency(base, date) {
-    let url = `http://api.fixer.io/${date}?base=${base}`;
+    let url = `https://api.fixer.io/${date}?base=${base}`;
     return this.http.get(url).map(res => res.json());
   }
 
