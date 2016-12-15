@@ -6,6 +6,7 @@ This project is a full stack financial charting application. It is used to graph
 
 ###Stocks
 To get started, please enter the code from any major stock market. The financial data for the previous year will be charted, along with the most recent close figure. The timeframe can be changed by clicking the buttons in the top left corner. You can enter multiple stocks to compare. The stocks will be saved to local storage, so they will automatically be displayed the next time you visit. To remove a stock, simply click the 'X'.
+
 ![](http://sschapman.com/img/gifs/stocks.gif)
 
 
