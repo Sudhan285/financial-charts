@@ -1,4 +1,4 @@
-# [Angular 2 Full Stack Financial Charts Program](http://sschapman.com/sam/financial-charts/)
+# [Angular 2 Full Stack Financial Charts Program](https://financial-charts.herokuapp.com/)
 
 This project is a full stack financial charting application. It is used to graph historical and current stock and currency exchange information.
 
